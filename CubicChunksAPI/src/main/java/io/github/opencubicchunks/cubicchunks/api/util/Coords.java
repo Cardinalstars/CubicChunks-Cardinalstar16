@@ -24,17 +24,15 @@
  */
 package io.github.opencubicchunks.cubicchunks.api.util;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.api.world.ICube;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class Coords {
 
     public static final int NO_HEIGHT = Integer.MIN_VALUE + 32;
@@ -101,16 +99,16 @@ public class Coords {
     }
 
     public static int getCubeXForEntity(Entity entity) {
-        return blockToCube(MathHelper.floor(entity.posX));
+        return blockToCube(Math.floor(entity.posX));
     }
 
     public static int getCubeZForEntity(Entity entity) {
-        return blockToCube(MathHelper.floor(entity.posZ));
+        return blockToCube(Math.floor(entity.posZ));
     }
 
     public static int getCubeYForEntity(Entity entity) {
         // the entity is in the cube it's inside, not the cube it's standing on
-        return blockToCube(MathHelper.floor(entity.posY));
+        return blockToCube(Math.floor(entity.posY));
     }
 
     public static BlockPos getCubeCenter(ICube cube) {
@@ -122,7 +120,7 @@ public class Coords {
     }
 
     public static int blockToCube(double blockPos) {
-        return blockToCube(MathHelper.floor(blockPos));
+        return blockToCube(Math.floor(blockPos));
     }
 
     public static int cubeToCenterBlock(int cubeVal) {

@@ -25,11 +25,10 @@
 package io.github.opencubicchunks.cubicchunks.core.world.column;
 
 import com.google.common.collect.Lists;
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.core.CubicChunksConfig;
 import io.github.opencubicchunks.cubicchunks.core.util.AddressTools;
 import io.github.opencubicchunks.cubicchunks.core.world.cube.Cube;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 
@@ -47,7 +46,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * Stores cubes for columns
  */
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class CubeMap implements Iterable<Cube> {
 
     @Nonnull private final List<Cube> cubes = new ArrayList<>();

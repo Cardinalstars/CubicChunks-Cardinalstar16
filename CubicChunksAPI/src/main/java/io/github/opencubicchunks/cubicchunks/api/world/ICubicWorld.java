@@ -26,11 +26,9 @@ package io.github.opencubicchunks.cubicchunks.api.world;
 
 import static io.github.opencubicchunks.cubicchunks.api.util.Coords.blockToCube;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.api.util.CubePos;
 import io.github.opencubicchunks.cubicchunks.api.util.NotCubicChunksWorldException;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.function.BiPredicate;
@@ -39,7 +37,6 @@ import java.util.function.Predicate;
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public interface ICubicWorld extends IMinMaxHeight {
 

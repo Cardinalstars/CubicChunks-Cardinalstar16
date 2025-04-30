@@ -24,16 +24,14 @@
  */
 package io.github.opencubicchunks.cubicchunks.api.world;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.api.util.XZAddressable;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Collection;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public interface IColumn extends XZAddressable {
 
     /**

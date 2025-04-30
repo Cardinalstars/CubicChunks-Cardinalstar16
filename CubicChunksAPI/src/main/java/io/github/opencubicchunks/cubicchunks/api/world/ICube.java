@@ -24,22 +24,19 @@
  */
 package io.github.opencubicchunks.cubicchunks.api.world;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.api.worldgen.ICubeGenerator;
 import io.github.opencubicchunks.cubicchunks.api.util.CubePos;
 import io.github.opencubicchunks.cubicchunks.api.util.XYZAddressable;
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ClassInheritanceMultiMap;
-import net.minecraft.util.math.BlockPos;
+
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import net.minecraftforge.common.capabilities.CapabilityDispatcher;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
 
 import java.util.EnumSet;
 import java.util.Map;
@@ -48,50 +45,13 @@ import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
-public interface ICube extends XYZAddressable, ICapabilityProvider {
+public interface ICube extends XYZAddressable {
 
     /**
      * Side length of a cube
      */
     int SIZE = 16;
     double SIZE_D = 16.0D;
-
-    /**
-     * Retrieve the block state at the specified location
-     *
-     * @param pos target location
-     *
-     * @return The block state
-     *
-     * @see #getBlockState(int, int, int)
-     */
-    IBlockState getBlockState(BlockPos pos);
-
-    /**
-     * Set the block state at the specified location
-     *
-     * @param pos target location
-     * @param newstate target state of the block at that position
-     *
-     * @return The the old state of the block at the position, or null if there was no change
-     *
-     * @see Chunk#setBlockState(BlockPos, IBlockState)
-     */
-    @Nullable IBlockState setBlockState(BlockPos pos, IBlockState newstate);
-
-    /**
-     * Retrieve the block state at the specified location
-     *
-     * @param blockX block x position
-     * @param localOrBlockY block or local y position
-     * @param blockZ block z position
-     *
-     * @return The block state
-     *
-     * @see #getBlockState(BlockPos)
-     */
-    IBlockState getBlockState(int blockX, int localOrBlockY, int blockZ);
 
     /**
      * Retrieve the raw light level at the specified location
@@ -116,12 +76,10 @@ public interface ICube extends XYZAddressable, ICapabilityProvider {
      * Retrieve the tile entity at the specified location
      *
      * @param pos target location
-     * @param createType how fast the tile entity is needed
      *
      * @return the tile entity at the specified location, or {@code null} if there is no entity and
-     * {@code createType} was not {@link Chunk.EnumCreateEntityType#IMMEDIATE}
      */
-    @Nullable TileEntity getTileEntity(BlockPos pos, Chunk.EnumCreateEntityType createType);
+    @Nullable TileEntity getTileEntity(BlockPos pos);
 
     /**
      * Add a tile entity to this cube
@@ -203,12 +161,12 @@ public interface ICube extends XYZAddressable, ICapabilityProvider {
      */
     Map<BlockPos, TileEntity> getTileEntityMap();
 
-    /**
-     * Returns the internal entity container.
-     *
-     * @return the entity container
-     */
-    ClassInheritanceMultiMap<Entity> getEntitySet();
+//    /**
+//     * Returns the internal entity container.
+//     *
+//     * @return the entity container
+//     */
+//    ClassInheritanceMultiMap<Entity> getEntitySet();
 
     void addEntity(Entity entity);
 
@@ -257,7 +215,7 @@ public interface ICube extends XYZAddressable, ICapabilityProvider {
 
     boolean hasLightUpdates();
 
-    Biome getBiome(BlockPos pos);
+    BiomeGenBase getBiome(BlockPos pos);
 
     /**
      * Set biome at a cube-local 4x4x4 block segment.
@@ -267,7 +225,7 @@ public interface ICube extends XYZAddressable, ICapabilityProvider {
      * @param localBiomeZ cube-local Z coordinate. One unit is 4 blocks
      * @param biome biome at the given cube coordinates
      */
-    void setBiome(int localBiomeX, int localBiomeY, int localBiomeZ, Biome biome);
+    void setBiome(int localBiomeX, int localBiomeY, int localBiomeZ, BiomeGenBase biome);
 
 
     /**
@@ -276,17 +234,13 @@ public interface ICube extends XYZAddressable, ICapabilityProvider {
      * @param localBiomeX cube-local X coordinate. One unit is 2 blocks
      * @param localBiomeZ cube-local Z coordinate. One unit is 2 blocks
      * @param biome biome at the given cube coordinates
-     * @deprecated Due to changes in Minecraft 1.15.x, biome storage will be changed to 1 biome per 4x4x4 blocks. Use {@link #setBiome(int, int, int, Biome)}
      */
     @Deprecated
-    default void setBiome(int localBiomeX, int localBiomeZ, Biome biome) {
+    default void setBiome(int localBiomeX, int localBiomeZ, BiomeGenBase biome) {
         for (int biomeY = 0; biomeY < 4; biomeY++) {
             setBiome(localBiomeX >> 1, biomeY, localBiomeZ >> 1, biome);
         }
     }
-
-    @Nullable
-    CapabilityDispatcher getCapabilities();
 
     /**
      * Returns a set of reasons this cube is forced to remain loaded if it's forced to remain loaded,

@@ -24,12 +24,10 @@
  */
 package io.github.opencubicchunks.cubicchunks.api.world;
 
-import mcp.MethodsReturnNonnullByDefault;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public interface IHeightMap {
 
     /**
