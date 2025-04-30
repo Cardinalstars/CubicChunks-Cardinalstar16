@@ -1,10 +1,10 @@
 [
     {
-        "modid": "cubicchunks",
-        "name": "CubicChunks",
+        "modid": "${modId}",
+        "name": "${modName}",
         "description": "Extends Minecraft height by changing chunk size to 16x16x16 blocks.",
         "version": "${version}",
-        "mcversion": "${mcversion}",
+        "mcversion": "${minecraftVersion}",
         "url": "",
         "updateUrl": "",
         "authorList": [
