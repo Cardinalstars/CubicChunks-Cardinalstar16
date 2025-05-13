@@ -29,11 +29,10 @@ import static io.github.opencubicchunks.cubicchunks.api.util.Coords.getCubeXForE
 import static io.github.opencubicchunks.cubicchunks.api.util.Coords.getCubeYForEntity;
 import static io.github.opencubicchunks.cubicchunks.api.util.Coords.getCubeZForEntity;
 
+import com.gtnewhorizon.gtnhlib.blockpos.BlockPos;
 import io.github.opencubicchunks.cubicchunks.api.world.ICube;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.ChunkCoordinates;
 
 import java.util.Random;
 import java.util.function.Consumer;
@@ -56,7 +55,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
  * This class also contains some helper methods to switch from/to block coordinates.
  */
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class CubePos {
 
     public static final CubePos ZERO = new CubePos(0, 0, 0);
@@ -230,8 +228,8 @@ public class CubePos {
         return new CubePos(getX() + dx, getY() + dy, getZ() + dz);
     }
 
-    public ChunkPos chunkPos() {
-        return new ChunkPos(getX(), getZ());
+    public ChunkCoordinates chunkPos() {
+        return new ChunkCoordinates(getX(), getY(), getZ());
     }
 
     public int distSquared(CubePos coords) {

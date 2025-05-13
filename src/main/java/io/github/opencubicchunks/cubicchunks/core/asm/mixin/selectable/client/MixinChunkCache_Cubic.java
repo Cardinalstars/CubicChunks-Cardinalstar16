@@ -34,14 +34,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import io.github.opencubicchunks.cubicchunks.core.world.ICubicChunkCache;
 import io.github.opencubicchunks.cubicchunks.core.world.cube.Cube;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkCache;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 @Mixin(ChunkCache.class)
 public abstract class MixinChunkCache_Cubic implements ICubicChunkCache {

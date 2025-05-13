@@ -24,11 +24,9 @@
  */
 package io.github.opencubicchunks.cubicchunks.api.worldgen;
 
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeGenBase;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,13 +34,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Arrays;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class CubePrimer {
-    public static final IBlockState DEFAULT_STATE = Blocks.AIR.getDefaultState();
-
+    public static final Block DEFAULT_BLOCK = Blocks.air;
+    
     private final char[] data;
     private byte[] extData = null; // NEID-compat
-    private Biome[] biomes3d = null;
+    private BiomeGenBase[] biomes3d = null;
 
     public boolean hasBiomes() {
         return biomes3d != null;
@@ -52,9 +49,9 @@ public class CubePrimer {
         this(new char[4096]);
     }
 
-    public static CubePrimer createFilled(IBlockState state) {
+    public static CubePrimer createFilled(Block block) {
         @SuppressWarnings("deprecation")
-        int value = Block.BLOCK_STATE_IDS.get(state);
+        int value = Block.getIdFromBlock(block);
         char lsb = (char) value;
         char[] data = new char[4096];
         Arrays.fill(data, lsb);
@@ -76,7 +73,7 @@ public class CubePrimer {
      */
     @SuppressWarnings("unused")
     @Nullable
-    public Biome getBiome(int localBiomeX, int localBiomeY, int localBiomeZ) {
+    public BiomeGenBase getBiome(int localBiomeX, int localBiomeY, int localBiomeZ) {
         if (biomes3d == null) {
             return null;
         }
@@ -98,9 +95,9 @@ public class CubePrimer {
      *              affect the returned value at other coordinates due to internal storage differences.
      */
     @SuppressWarnings("unused")
-    public void setBiome(int localBiomeX, int localBiomeY, int localBiomeZ, Biome biome) {
+    public void setBiome(int localBiomeX, int localBiomeY, int localBiomeZ, BiomeGenBase biome) {
         if (this.biomes3d == null) {
-            this.biomes3d = new Biome[8 * 8];
+            this.biomes3d = new BiomeGenBase[8 * 8];
         }
 
         int biomeX = localBiomeX * 2;
@@ -121,15 +118,15 @@ public class CubePrimer {
      * @param z cube local z
      * @return the block state
      */
-    public IBlockState getBlockState(int x, int y, int z) {
+    public Block getBlock(int x, int y, int z) {
         int idx = getBlockIndex(x, y, z);
-        int block = this.data[idx];
+        int id = this.data[idx];
         if (extData != null) {
-            block |= extData[idx] << 16;
+            id |= extData[idx] << 16;
         }
         @SuppressWarnings("deprecation")
-        IBlockState iblockstate = Block.BLOCK_STATE_IDS.getByValue(block);
-        return iblockstate == null ? DEFAULT_STATE : iblockstate;
+        Block iblockstate = Block.getBlockById(id);
+        return iblockstate == null ? DEFAULT_BLOCK : iblockstate;
     }
 
     /**
@@ -140,9 +137,9 @@ public class CubePrimer {
      * @param z     cube local z
      * @param state the block state
      */
-    public void setBlockState(int x, int y, int z, @Nonnull IBlockState state) {
+    public void setBlockState(int x, int y, int z, @Nonnull Block block) {
         @SuppressWarnings("deprecation")
-        int value = Block.BLOCK_STATE_IDS.get(state);
+        int value = Block.getIdFromBlock(block);
         char lsb = (char) value;
         int idx = getBlockIndex(x, y, z);
         this.data[idx] = lsb;

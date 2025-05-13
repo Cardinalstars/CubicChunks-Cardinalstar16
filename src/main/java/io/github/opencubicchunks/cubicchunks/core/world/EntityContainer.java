@@ -25,18 +25,18 @@
 package io.github.opencubicchunks.cubicchunks.core.world;
 
 import io.github.opencubicchunks.cubicchunks.core.CubicChunks;
-import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.ClassInheritanceMultiMap;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Consumer;
 
 import javax.annotation.Nonnull;
@@ -44,13 +44,12 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 //TODO: Have xcube review this class... I dont trust it
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class EntityContainer {
     @SuppressWarnings("unchecked")
-    public static final ClassInheritanceMultiMap<Entity>[] EMPTY_ARR = new ClassInheritanceMultiMap[]{new BlankEntityContainer.BlankEntityMap()};
+    public static final Set<Entity>[] EMPTY_ARR = new HashSet<Entity>[]{new BlankEntityContainer.BlankEntityMap()};
 
     @Nonnull protected ClassInheritanceMultiMap<Entity> entities;
-    protected boolean hasActiveEntities; //TODO: hasActiveEntitys is like an isModifyed right?
+    protected boolean hasActiveEntities; //TODO: hasActiveEntitys is like an isModified right?
     protected long lastSaveTime;
 
     public EntityContainer() {

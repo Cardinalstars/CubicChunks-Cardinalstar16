@@ -27,7 +27,6 @@ package io.github.opencubicchunks.cubicchunks.core.util.ticket;
 import com.google.common.collect.Lists;
 import io.github.opencubicchunks.cubicchunks.core.asm.mixin.ICubicWorldInternal;
 import io.github.opencubicchunks.cubicchunks.core.world.cube.Cube;
-import mcp.MethodsReturnNonnullByDefault;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -36,7 +35,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @ParametersAreNonnullByDefault
-@MethodsReturnNonnullByDefault
 public class TicketList {
 
     private final Cube cube;

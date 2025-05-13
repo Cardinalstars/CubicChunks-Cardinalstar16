@@ -24,20 +24,12 @@
  */
 package io.github.opencubicchunks.cubicchunks.core.asm.mixin;
 
-import mcp.MethodsReturnNonnullByDefault;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-
-import java.util.Map;
-
-import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 /**
  * Interface for WorldSettings and WorldInfo allowing to store custom data into the world.
  * The data is will be stored on disk, but will not be sent to client.
  */
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public interface ICubicWorldSettings {
 
